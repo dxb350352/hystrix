@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CacheService {
     @HystrixCommand(fallbackMethod = "getProductInfoFallback", groupKey = "GetProductInfoCommandGroup",
+            commandKey = "GetProductInfoCommandKey",
             //ignoreExceptions = {BadRequestException.class} 指定哪一类异常可以忽略,不走fallback
             commandProperties = {
                     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),//方法执行超时时间

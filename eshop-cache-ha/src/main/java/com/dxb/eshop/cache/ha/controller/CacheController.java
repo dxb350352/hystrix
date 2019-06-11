@@ -51,7 +51,7 @@ public class CacheController {
     public String getProductInfos(String productIds) {
         HystrixObservableCommand<ProductInfo> getProductInfosCommand = new GetProductInfosCommand(productIds.split(","));
         // 还没有执行
-        Observable<ProductInfo> observable = getProductInfosCommand.toObservable();
+        Observable<ProductInfo> observable = getProductInfosCommand.observe();
         // 等到调用subscribe然后才会执行
         List<ProductInfo> result = new ArrayList<>();
 //        observable.subscribe(new Observer<ProductInfo>() {
@@ -69,6 +69,7 @@ public class CacheController {
 //                System.out.println(result.size());
 //            }
 //        });
+
         Iterator<ProductInfo> iter = observable.toBlocking().getIterator();
         while (iter.hasNext()) {
             result.add(iter.next());

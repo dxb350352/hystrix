@@ -7,8 +7,6 @@ import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 
-import java.util.concurrent.TimeUnit;
-
 public class GetProductInfoCommand extends HystrixCommand<ProductInfo> {
 
     private Long productId;
