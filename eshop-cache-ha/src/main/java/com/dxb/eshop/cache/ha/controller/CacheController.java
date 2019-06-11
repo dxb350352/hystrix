@@ -40,6 +40,16 @@ public class CacheController {
         HystrixCommand<ProductInfo> command = new GetProductInfoCommand(productId);
         ProductInfo productInfo = command.execute();
         System.out.println(productInfo);
+        System.out.println("缓存？" + command.isResponseFromCache());
+        //走缓存
+        command = new GetProductInfoCommand(productId);
+        productInfo = command.execute();
+        System.out.println("缓存？" + command.isResponseFromCache());
+        //清缓存
+        GetProductInfoCommand.flushCache(productId);
+        command = new GetProductInfoCommand(productId);
+        productInfo = command.execute();
+        System.out.println("缓存？" + command.isResponseFromCache());
         //3、信号量
         GetCityNameCommand getCityNameCommand = new GetCityNameCommand(productInfo.getCityId());
         productInfo.setCityName(getCityNameCommand.execute());
